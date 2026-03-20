@@ -89,7 +89,7 @@ def send_agent_message(message: str, **kwargs) -> dict[str, Any]:
     except ValueError:
         body = response.text.strip()
 
-    accepted = response.status_code in {200}
+    accepted = response.status_code in {200, 202}
     result = {
         "success": accepted,
         "status_code": response.status_code,
