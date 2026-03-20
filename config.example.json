@@ -14,5 +14,5 @@
   "TIMEOUT_SECONDS": 120,
   "USE_SOCKS_PROXY": true,
   "LOG_ENABLED": false,
-  "LOG_PATH": "/Users/uker/www/lewei/xiaozhi/logs/bridge_events.jsonl"
+  "LOG_PATH": "logs/bridge_events.jsonl"
 }
