@@ -10,9 +10,11 @@ import websockets
 from dotenv import load_dotenv
 
 from bridge_logging import log_event, log_json_message
+from config import load_config as _load_config
 
 
 load_dotenv()
+_config = _load_config()
 
 logging.basicConfig(
     level=logging.INFO,
@@ -39,13 +41,23 @@ async def pipe_websocket_to_process(websocket, process: subprocess.Popen) -> Non
 
 
 async def pipe_process_to_websocket(process: subprocess.Popen, websocket) -> None:
-    while True:
-        data = await asyncio.to_thread(process.stdout.readline)
-        if not data:
-            logger.info("server stdout closed")
-            return
-        log_json_message("tool_to_xiaozhi", data.rstrip("\n"))
-        await websocket.send(data)
+    try:
+        while True:
+            data = await asyncio.to_thread(process.stdout.readline)
+            if not data:
+                logger.info("server stdout closed")
+                return
+            log_json_message("tool_to_xiaozhi", data.rstrip("\n"))
+            await websocket.send(data)
+
+            # 发送响应后断开连接（防止消息轰炸）
+            if _config.get("DISCONNECT_AFTER_RESPONSE"):
+                logger.info("disconnecting after response (DISCONNECT_AFTER_RESPONSE=true)")
+                log_event("disconnect_after_response")
+                await websocket.close()
+                return
+    except websockets.ConnectionClosed:
+        pass
 
 
 async def pipe_process_stderr(process: subprocess.Popen) -> None:

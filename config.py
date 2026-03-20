@@ -22,6 +22,7 @@ DEFAULT_CONFIG = {
     "THINKING": "",
     "TIMEOUT_SECONDS": 120,
     "USE_SOCKS_PROXY": True,
+    "DISCONNECT_AFTER_RESPONSE": False,
     "LOG_ENABLED": False,
     "LOG_PATH": str(PROJECT_ROOT / "logs" / "bridge_events.jsonl"),
 }
@@ -40,6 +41,7 @@ ENV_OVERRIDE_MAP = {
     "THINKING": "THINKING",
     "TIMEOUT_SECONDS": "TIMEOUT_SECONDS",
     "USE_SOCKS_PROXY": "USE_SOCKS_PROXY",
+    "DISCONNECT_AFTER_RESPONSE": "DISCONNECT_AFTER_RESPONSE",
     "LOG_ENABLED": "LOG_ENABLED",
     "LOG_PATH": "LOG_PATH",
 }
@@ -85,6 +87,7 @@ def normalize_config(config: dict | None) -> dict:
         DEFAULT_CONFIG["TIMEOUT_SECONDS"],
     )
     merged["USE_SOCKS_PROXY"] = _coerce_bool(merged.get("USE_SOCKS_PROXY", True))
+    merged["DISCONNECT_AFTER_RESPONSE"] = _coerce_bool(merged.get("DISCONNECT_AFTER_RESPONSE", False))
     merged["LOG_ENABLED"] = _coerce_bool(merged.get("LOG_ENABLED", False))
     return merged
 

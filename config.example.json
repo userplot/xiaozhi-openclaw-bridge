@@ -13,6 +13,7 @@
   "THINKING": "",
   "TIMEOUT_SECONDS": 120,
   "USE_SOCKS_PROXY": true,
+  "DISCONNECT_AFTER_RESPONSE": false,
   "LOG_ENABLED": false,
   "LOG_PATH": "logs/bridge_events.jsonl"
 }
