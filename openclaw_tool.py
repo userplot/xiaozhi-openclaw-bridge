@@ -147,8 +147,8 @@ def send_message_tool(
     timeout_seconds: int | None = None,
 ) -> dict[str, Any]:
     """
-    通过 OpenClaw webhook 发送一条 agent 消息。
-    默认配置来自 config.json，也可以在调用时覆盖。
+    向 OpenClaw（小龙虾）发送消息，由 AI Agent 进行处理。
+    用途：当你需要调用外部 AI 能力、处理复杂任务、或与 OpenClaw（小龙虾）生态交互时使用此工具。
     """
     return send_agent_message(
         message,
@@ -166,7 +166,7 @@ def send_message_tool(
 
 # @mcp.tool(name="check_openclaw_health")
 # def check_openclaw_health_tool() -> dict[str, Any]:
-#     """检查 OpenClaw 服务是否可访问。"""
+#     """检查 OpenClaw（小龙虾）服务是否可访问。"""
 #     return check_health()
 
 
